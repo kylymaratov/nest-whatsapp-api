@@ -10,13 +10,13 @@ export class WhatsappJsEvents {
     private readonly whatsappJsService: WhatsappJsService,
   ) {
     this.init()
+    this.qrCode()
+    this.isAuthenticated()
+    this.isReady()
   }
 
   private async init() {
     await this.whatsappModule.initialize()
-    await this.qrCode()
-    await this.isAuthenticated()
-    await this.isReady()
   }
 
   private async qrCode() {

@@ -17,6 +17,7 @@ export class WhatsappJsService {
   }
 
   setIsReady(value: boolean) {
+    console.log(value)
     this.isReady = value
   }
 
@@ -39,7 +40,6 @@ export class WhatsappJsService {
   async getSavedQrCode(): Promise<{
     qrCode: string
     updatedAt: string
-    createdAt: string
   } | null> {
     try {
       const qrCode = await fs.readFile(process.cwd() + '/qr-code.txt', 'utf-8')
@@ -47,8 +47,7 @@ export class WhatsappJsService {
 
       return {
         qrCode,
-        updatedAt: stat.mtime.toLocaleString(),
-        createdAt: stat.ctime.toLocaleString(),
+        updatedAt: stat.mtime.toISOString(),
       }
     } catch (error) {
       this.logger.error('Error reading QR code:', error)
@@ -58,6 +57,7 @@ export class WhatsappJsService {
 
   async getChatMessagesById(chatId: string) {
     const chat = await this.getChatById(chatId)
+
     if (!chat) {
       this.logger.warn(`Chat with ID ${chatId} not found`)
       return []
@@ -76,9 +76,5 @@ export class WhatsappJsService {
 
   async getChatById(id: string) {
     return await this.whatsappModule.getChatById(id)
-  }
-
-  async destroy() {
-    await this.whatsappModule.destroy()
   }
 }

@@ -3,6 +3,8 @@
 /node_modules
 /build
 
+qr-code.txt
+
 # Logs
 logs
 *.log
