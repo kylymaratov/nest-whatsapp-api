@@ -67,7 +67,11 @@ export class WhatsappJsService {
   }
 
   async sendMessage(to: string, message: string) {
-    await this.whatsappModule.sendMessage(to, message)
+    return await this.whatsappModule.sendMessage(to, message)
+  }
+
+  async sendMedia(to: string, media: any, caption?: string) {
+    return await this.whatsappModule.sendMessage(to, media, { caption })
   }
 
   async getChats() {
@@ -76,5 +80,9 @@ export class WhatsappJsService {
 
   async getChatById(id: string) {
     return await this.whatsappModule.getChatById(id)
+  }
+
+  async getContacts() {
+    return this.whatsappModule.getContacts()
   }
 }
